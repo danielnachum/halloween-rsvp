@@ -193,6 +193,14 @@ footer{padding-block:0 110px;color:var(--mist);font-size:14px;text-align:center}
 .field.bad input{border-color:var(--blood)}
 .msg{display:none;color:#ff7a86;font-size:14px}
 .field.bad .msg{display:block}
+.plus-row{border:1px solid var(--glass-line);border-radius:16px;padding:12px 14px 0;margin-bottom:12px;background:rgba(0,0,0,.15)}
+.plus-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--mist)}
+.plus-head button{background:none;border:0;color:var(--mist);font:500 13px var(--f-body);letter-spacing:0;text-transform:none;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pair .field{min-width:0}
+.add-friend{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px;margin:0 0 18px;border:1px dashed rgba(255,123,28,.55);border-radius:14px;background:transparent;color:var(--pumpkin);font:600 15px var(--f-body);cursor:pointer}
+.add-friend span{font-size:20px;line-height:1}
+.add-friend:focus-visible,.plus-head button:focus-visible{outline:2px solid var(--pumpkin);outline-offset:3px}
 .chips{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
 .chip{position:relative;display:flex;align-items:center;gap:10px;padding:13px 14px;border-radius:14px;border:1px solid var(--glass-line);
   background:rgba(0,0,0,.22);cursor:pointer;font-weight:500;transition:background .15s,border-color .15s;user-select:none}
@@ -208,7 +216,7 @@ footer{padding-block:0 110px;color:var(--mist);font-size:14px;text-align:center}
 .fineprint{font-size:13px;color:var(--mist);text-align:center;margin:12px 0 0}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 
-@media (max-width:420px){.chips{grid-template-columns:1fr}.fab{padding:15px 24px}}
+@media (max-width:420px){.pair{grid-template-columns:1fr;gap:0}.chips{grid-template-columns:1fr}.fab{padding:15px 24px}}
 @media (prefers-reduced-motion:reduce){
   .sp,.witch,.witch svg,.fog,.leg,.moon-body,.fab,.moon.awake{animation:none!important}
   .sp{height:22vh}
@@ -293,10 +301,10 @@ footer{padding-block:0 110px;color:var(--mist);font-size:14px;text-align:center}
 
       <section class="step" data-step="2" hidden>
         <h3>Stunning vampire you’d like to invite?</h3>
-        <p class="lead">Bringing a +1? We’ll send them the invite too.</p>
-        <div class="field" data-f><label for="pName">Their name</label><input id="pName" autocomplete="off" placeholder="Name"><span class="msg">Your +1 needs a name.</span></div>
-        <div class="field" data-f><label for="pPhone">Their phone</label><input id="pPhone" type="tel" inputmode="tel" autocomplete="off" placeholder="050-000-0000"><span class="msg">Enter a full mobile number, e.g. 050-123-4567.</span></div>
-        <div class="actions"><button class="btn" type="submit">Add my +1</button><button class="link-btn" type="button" data-skip>I’m coming solo</button></div>
+        <p class="lead">Bringing friends? Each one gets the invite by SMS.</p>
+        <div id="plusList"></div>
+        <button class="add-friend" type="button" id="addFriend"><span aria-hidden="true">+</span> Add another friend</button>
+        <div class="actions"><button class="btn" type="submit">Continue</button><button class="link-btn" type="button" data-skip>I’m coming solo</button></div>
       </section>
 
       <section class="step" data-step="3" hidden>
@@ -504,6 +512,7 @@ footer{padding-block:0 110px;color:var(--mist);font-size:14px;text-align:center}
     if(busy||!overlay.hidden)return;busy=true;
     if(rec.done){fillDone();show(5)}else show(rec.name?2:1);
     if(rec.name){$("#name").value=rec.name;$("#phone").value=rec.phoneRaw||""}
+    renderPlus();
     fab.style.visibility="hidden";
     overlay.hidden=false;document.body.style.overflow="hidden";
     var to=modal.getBoundingClientRect();
@@ -539,6 +548,28 @@ footer{padding-block:0 110px;color:var(--mist);font-size:14px;text-align:center}
   overlay.addEventListener("click",function(e){if(e.target===overlay)close()});
   document.addEventListener("keydown",function(e){if(e.key==="Escape")close()});
 
+  var MAX_FRIENDS=6,rowSeq=0;
+  function addRow(data){
+    var list=$("#plusList");if(list.children.length>=MAX_FRIENDS)return null;
+    var i=++rowSeq,row=document.createElement("div");row.className="plus-row";
+    row.innerHTML='<div class="plus-head"><span class="ph-title"></span><button type="button" class="rm">Remove</button></div>'+
+      '<div class="pair"><div class="field" data-f><label for="pName'+i+'">Name</label><input id="pName'+i+'" class="pn" autocomplete="off" placeholder="Name"><span class="msg">Needs a name.</span></div>'+
+      '<div class="field" data-f><label for="pPhone'+i+'">Phone</label><input id="pPhone'+i+'" class="pp" type="tel" inputmode="tel" autocomplete="off" placeholder="050-000-0000"><span class="msg">Full mobile number, e.g. 050-123-4567.</span></div></div>';
+    if(data){row.querySelector(".pn").value=data.name||"";row.querySelector(".pp").value=data.raw||data.phone||""}
+    $$("input",row).forEach(function(inp){inp.addEventListener("input",function(){setBad(inp,false)})});
+    row.querySelector(".rm").addEventListener("click",function(){row.remove();if(!$("#plusList").children.length)addRow();relabel()});
+    list.appendChild(row);relabel();return row;
+  }
+  function relabel(){
+    var rows=$$("#plusList .plus-row");
+    rows.forEach(function(r,i){r.querySelector(".ph-title").textContent="Friend "+(i+1);r.querySelector(".rm").hidden=rows.length<2});
+    $("#addFriend").hidden=rows.length>=MAX_FRIENDS;
+  }
+  function renderPlus(){
+    $("#plusList").innerHTML="";var saved=rec.plus&&rec.plus.length?rec.plus:(rec.plusName?[{name:rec.plusName,phone:rec.plusPhone}]:[]);
+    if(saved.length)saved.forEach(addRow);else addRow();
+  }
+  $("#addFriend").addEventListener("click",function(){var r=addRow();if(r)r.querySelector(".pn").focus()});
   function normPhone(v){var d=(v||"").replace(/\D/g,"");if(/^0\d{8,9}$/.test(d))d="972"+d.slice(1);return /^\d{11,15}$/.test(d)?d:"";}
   function setBad(input,bad){input.closest("[data-f]").classList.toggle("bad",bad);return !bad}
   $$("[data-f] input").forEach(function(i){i.addEventListener("input",function(){setBad(i,false)})});
@@ -558,14 +589,20 @@ footer{padding-block:0 110px;color:var(--mist);font-size:14px;text-align:center}
       if(!ok){($(".bad input",form)||n).focus();return}
       rec.name=n.value.trim();rec.phone=ph;rec.phoneRaw=p.value.trim();rec.step=1;save();show(2);
     }else if(cur===2){
-      var pn=$("#pName"),pp=$("#pPhone");
-      if(!pn.value.trim()&&!pp.value.trim()){skipPlus();return}
-      var pph=normPhone(pp.value),ok2=setBad(pn,!pn.value.trim());ok2=setBad(pp,!pph)&&ok2;if(!ok2)return;
-      rec.plusName=pn.value.trim();rec.plusPhone=pph;rec.step=2;save();show(3);
+      var list=[],ok2=true;
+      $$("#plusList .plus-row").forEach(function(r){
+        var pn=r.querySelector(".pn"),pp=r.querySelector(".pp");
+        if(!pn.value.trim()&&!pp.value.trim())return;
+        var pph=normPhone(pp.value),a=setBad(pn,!pn.value.trim()),b=setBad(pp,!pph);
+        if(a&&b)list.push({name:pn.value.trim(),phone:pph,raw:pp.value.trim()});else ok2=false;
+      });
+      if(!ok2){var bad=$("#plusList .bad input");if(bad)bad.focus();return}
+      if(!list.length){skipPlus();return}
+      rec.plus=list;rec.plusName=list[0].name;rec.plusPhone=list[0].phone;rec.step=2;save();show(3);
     }else if(cur===3){rec.bring=checked("bring");rec.step=3;save();show(4);
     }else if(cur===4){rec.help=checked("help");rec.step=4;rec.done=true;save();fillDone();show(5);}
   });
-  function skipPlus(){rec.plusName="";rec.plusPhone="";rec.step=2;save();show(3)}
+  function skipPlus(){rec.plus=[];rec.plusName="";rec.plusPhone="";rec.step=2;save();show(3)}
   $("[data-skip]").addEventListener("click",skipPlus);
   $("[data-skiphelp]").addEventListener("click",function(){$$('input[name="help"]').forEach(function(c){c.checked=false});cur=4;form.requestSubmit?form.requestSubmit():form.dispatchEvent(new Event("submit",{cancelable:true}))});
 
