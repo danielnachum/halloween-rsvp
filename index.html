@@ -182,6 +182,9 @@ footer{padding-block:0 110px;color:var(--mist);font-size:14px;text-align:center}
 .steps svg{width:100%;height:100%;fill:var(--pumpkin)}
 .step h3{font-family:var(--f-horror);font-weight:400;font-size:34px;line-height:1.08;margin:0 0 8px;text-align:center;text-wrap:balance;letter-spacing:.02em}
 .step .lead{margin:0 0 20px;text-align:center;color:var(--mist)}
+.step.final{padding-block:18px 10px}
+.step.final h3{font-size:44px;line-height:1;color:var(--pumpkin);text-shadow:0 0 24px rgba(255,123,28,.35);margin-bottom:14px}
+.step.final .lead{font-size:18px;color:var(--bone);margin:0}
 .field{display:grid;gap:6px;margin-bottom:14px}
 .field label{font-weight:500;font-size:15px}
 .field input{width:100%;font:400 17px var(--f-body);color:var(--bone);background:rgba(0,0,0,.28);border:1px solid var(--glass-line);border-radius:12px;padding:13px 14px}
@@ -243,7 +246,7 @@ footer{padding-block:0 110px;color:var(--mist);font-size:14px;text-align:center}
         <div class="event-when">
           <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><b id="whenDate">Friday</b></span>
           <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><b>18:30</b></span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Daniel's place, <b>Florentin</b></span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Daniel’s place, <b>Florentin</b></span>
         </div>
         <div class="banner" id="banner">
           <div class="vid-ph" id="vidPh">
@@ -262,15 +265,15 @@ footer{padding-block:0 110px;color:var(--mist);font-size:14px;text-align:center}
     <div class="wrap">
       <h2>House Rules</h2>
       <div class="stones">
-        <div class="stone"><span class="rip">R.I.P</span><span class="rule">Spook someone you don't know</span><span class="note">Strangers are just friends you haven't scared yet.</span></div>
-        <div class="stone"><span class="rip">R.I.P</span><span class="rule">Stay alive</span><span class="note">At least until dessert.</span></div>
+        <div class="stone"><span class="rip">R.I.P.</span><span class="rule">Spook someone you don’t know</span><span class="note">Strangers are just friends you haven’t scared yet.</span></div>
+        <div class="stone"><span class="rip">R.I.P.</span><span class="rule">Stay alive</span><span class="note">At least until dessert.</span></div>
       </div>
     </div>
   </section>
 </main>
-<footer><div class="wrap">Florentin, Tel Aviv · The address arrives by text after you RSVP</div></footer>
+<footer><div class="wrap">Florentin, Tel Aviv · Address and door code by SMS after you RSVP</div></footer>
 
-<button class="fab" id="fab" type="button">I'm coming 🦇</button>
+<button class="fab" id="fab" type="button">I’m coming 🦇</button>
 
 <!-- ================= RSVP POPUP ================= -->
 <div class="overlay" id="overlay" hidden>
@@ -283,18 +286,18 @@ footer{padding-block:0 110px;color:var(--mist);font-size:14px;text-align:center}
 
       <section class="step" data-step="1">
         <h3 id="stepTitle">Who dares to come?</h3>
-        <p class="lead">Just your name and phone. The address comes by text message.</p>
+        <p class="lead">Just your name and phone. The address comes by SMS.</p>
         <div class="field" data-f><label for="name">Name</label><input id="name" autocomplete="name" placeholder="Your name"><span class="msg">We need a name, even a fake one.</span></div>
         <div class="field" data-f><label for="phone">Phone</label><input id="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="050-000-0000"><span class="msg">Enter a full mobile number, e.g. 050-123-4567.</span></div>
         <div class="actions"><button class="btn" type="submit">Continue</button></div>
       </section>
 
       <section class="step" data-step="2" hidden>
-        <h3>Stunning vampire you'd like to invite</h3>
-        <p class="lead">Bringing a +1? We'll send them the invite too.</p>
+        <h3>Stunning vampire you’d like to invite?</h3>
+        <p class="lead">Bringing a +1? We’ll send them the invite too.</p>
         <div class="field" data-f><label for="pName">Their name</label><input id="pName" autocomplete="off" placeholder="Name"><span class="msg">Your +1 needs a name.</span></div>
         <div class="field" data-f><label for="pPhone">Their phone</label><input id="pPhone" type="tel" inputmode="tel" autocomplete="off" placeholder="050-000-0000"><span class="msg">Enter a full mobile number, e.g. 050-123-4567.</span></div>
-        <div class="actions"><button class="btn" type="submit">Add my +1</button><button class="link-btn" type="button" data-skip>I'm coming solo</button></div>
+        <div class="actions"><button class="btn" type="submit">Add my +1</button><button class="link-btn" type="button" data-skip>I’m coming solo</button></div>
       </section>
 
       <section class="step" data-step="3" hidden>
@@ -321,15 +324,9 @@ footer{padding-block:0 110px;color:var(--mist);font-size:14px;text-align:center}
         <div class="actions"><button class="btn" type="submit">Done</button><button class="link-btn" type="button" data-skiphelp>Skip</button></div>
       </section>
 
-      <section class="step" data-step="5" hidden>
-        <h3>So glad you're coming. See you soon.</h3>
-        <p class="lead" id="doneLead">You're on the list.</p>
-        <div class="actions">
-          <a class="btn" id="calBtn" target="_blank" rel="noopener">Add to calendar 📅</a>
-          <button class="link-btn" type="button" data-close>Back to the page</button>
-          <button class="link-btn" type="button" data-restart>Not you? Start a new RSVP</button>
-        </div>
-        <p class="fineprint" id="fine"></p>
+      <section class="step final" data-step="5" hidden>
+        <h3>So glad you’re coming.</h3>
+        <p class="lead">You’ll get an SMS with all the details.</p>
       </section>
     </form>
   </div>
@@ -540,7 +537,6 @@ footer{padding-block:0 110px;color:var(--mist);font-size:14px;text-align:center}
   fab.addEventListener("click",open);
   $("#backBtn").addEventListener("click",function(){if(cur>1&&cur<5)show(cur-1)});
   $("#closeBtn").addEventListener("click",close);
-  $$("[data-close]").forEach(function(b){b.addEventListener("click",close)});
   overlay.addEventListener("click",function(e){if(e.target===overlay)close()});
   document.addEventListener("keydown",function(e){if(e.key==="Escape")close()});
 
@@ -574,25 +570,14 @@ footer{padding-block:0 110px;color:var(--mist);font-size:14px;text-align:center}
   $("[data-skip]").addEventListener("click",skipPlus);
   $("[data-skiphelp]").addEventListener("click",function(){$$('input[name="help"]').forEach(function(c){c.checked=false});cur=4;form.requestSubmit?form.requestSubmit():form.dispatchEvent(new Event("submit",{cancelable:true}))});
 
-  function fillDone(){
-    var details=CONFIG.TICKET+"\nHouse rules: spook someone you don't know. Stay alive, at least until dessert.";
-    $("#calBtn").href="https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent("Halloween Dinner Party 🎃")+
-      "&dates="+CONFIG.CAL_START+"/"+CONFIG.CAL_END+"&ctz=Asia/Jerusalem&details="+encodeURIComponent(details)+"&location="+encodeURIComponent(CONFIG.LOCATION);
-    $("#doneLead").textContent=(rec.name?rec.name+", you're":"You're")+" on the list.";
-    $("#fine").textContent=rec.plusPhone?rec.plusName+" gets the invite by SMS too.":"";
-  }
+  function fillDone(){}
   function renderState(){
     if(!rec.done)return;
-    fab.classList.add("done");fab.textContent="You're on the list 🕯️";
+    fab.classList.add("done");fab.textContent="You’re on the list 🕯️";
   }
   renderState();
   // an RSVP saved on this device before the page was connected gets sent now
   if(rec.name&&rec.phone&&CONFIG.ENDPOINT&&rec.sentTo!==CONFIG.ENDPOINT)save();
-  $("[data-restart]").addEventListener("click",function(){
-    rec={id:"g"+Date.now().toString(36)+Math.random().toString(36).slice(2,7)};store.set("hw_rsvp",rec);
-    form.reset();$$("[data-f]").forEach(function(f){f.classList.remove("bad")});
-    fab.classList.remove("done");fab.textContent="I'm coming 🦇";show(1);
-  });
 })();
 </script>
 
