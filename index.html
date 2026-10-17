@@ -329,6 +329,7 @@ footer{padding-block:0 110px;color:var(--mist);font-size:14px;text-align:center}
           <a class="btn" id="calBtn" target="_blank" rel="noopener">Add to calendar 📅</a>
           <a class="btn ghost" id="waPlus" target="_blank" rel="noopener" hidden></a>
           <button class="link-btn" type="button" data-close>Back to the page</button>
+          <button class="link-btn" type="button" data-restart>Not you? Start a new RSVP</button>
         </div>
         <p class="fineprint" id="fine"></p>
       </section>
@@ -550,6 +551,7 @@ footer{padding-block:0 110px;color:var(--mist);font-size:14px;text-align:center}
   function save(){
     rec.updated=new Date().toISOString();store.set("hw_rsvp",rec);
     if(!CONFIG.ENDPOINT||$("#botField").value)return;
+    rec.sentTo=CONFIG.ENDPOINT;store.set("hw_rsvp",rec);
     try{fetch(CONFIG.ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(rec)})}catch(e){}
   }
   function checked(name){return $$('input[name="'+name+'"]:checked').map(function(c){return c.value})}
@@ -589,6 +591,13 @@ footer{padding-block:0 110px;color:var(--mist);font-size:14px;text-align:center}
     fab.classList.add("done");fab.textContent="You're on the list 🕯️";
   }
   renderState();
+  // an RSVP saved on this device before the page was connected gets sent now
+  if(rec.name&&rec.phone&&CONFIG.ENDPOINT&&rec.sentTo!==CONFIG.ENDPOINT)save();
+  $("[data-restart]").addEventListener("click",function(){
+    rec={id:"g"+Date.now().toString(36)+Math.random().toString(36).slice(2,7)};store.set("hw_rsvp",rec);
+    form.reset();$$("[data-f]").forEach(function(f){f.classList.remove("bad")});
+    fab.classList.remove("done");fab.textContent="I'm coming 🦇";show(1);
+  });
 })();
 </script>
 
