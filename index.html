@@ -324,7 +324,6 @@ footer{padding-block:0 110px;color:var(--mist);font-size:14px;text-align:center}
       <section class="step" data-step="5" hidden>
         <h3>So glad you're coming. See you soon.</h3>
         <p class="lead" id="doneLead">You're on the list.</p>
-        <div class="ticket"><small>Your ticket</small><span id="ticketText"></span></div>
         <div class="actions">
           <a class="btn" id="calBtn" target="_blank" rel="noopener">Add to calendar 📅</a>
           <button class="link-btn" type="button" data-close>Back to the page</button>
@@ -576,7 +575,6 @@ footer{padding-block:0 110px;color:var(--mist);font-size:14px;text-align:center}
   $("[data-skiphelp]").addEventListener("click",function(){$$('input[name="help"]').forEach(function(c){c.checked=false});cur=4;form.requestSubmit?form.requestSubmit():form.dispatchEvent(new Event("submit",{cancelable:true}))});
 
   function fillDone(){
-    $("#ticketText").textContent=CONFIG.TICKET;
     var details=CONFIG.TICKET+"\nHouse rules: spook someone you don't know. Stay alive, at least until dessert.";
     $("#calBtn").href="https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent("Halloween Dinner Party 🎃")+
       "&dates="+CONFIG.CAL_START+"/"+CONFIG.CAL_END+"&ctz=Asia/Jerusalem&details="+encodeURIComponent(details)+"&location="+encodeURIComponent(CONFIG.LOCATION);
