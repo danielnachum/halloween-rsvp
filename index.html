@@ -31,6 +31,7 @@
   --f-body:"Rubik",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
 }
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 html{background:var(--night)}
 body{
   background:
@@ -49,7 +50,7 @@ body{
 
 /* ---------- sky: moon, fog ---------- */
 .sky{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
-.moon{position:absolute;top:6vh;inset-inline-start:7vw;width:min(34vw,300px);aspect-ratio:1;border-radius:50%;
+.moon{position:absolute;top:4vh;inset-inline-end:4vw;width:min(34vw,300px);aspect-ratio:1;border-radius:50%;
   background:radial-gradient(circle at 38% 36%, #fff8e1 0%, var(--moon) 45%, #cbb98b 100%);
   box-shadow:0 0 80px 20px rgba(242,230,196,.18),0 0 220px 60px rgba(255,123,28,.08);opacity:.9}
 .moon::before,.moon::after{content:"";position:absolute;border-radius:50%;background:rgba(150,130,90,.22)}
