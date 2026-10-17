@@ -268,7 +268,7 @@ footer{padding-block:0 110px;color:var(--mist);font-size:14px;text-align:center}
     </div>
   </section>
 </main>
-<footer><div class="wrap">Florentin, Tel Aviv · Address arrives on WhatsApp after you RSVP</div></footer>
+<footer><div class="wrap">Florentin, Tel Aviv · The address arrives by text after you RSVP</div></footer>
 
 <button class="fab" id="fab" type="button">I'm coming 🦇</button>
 
@@ -283,7 +283,7 @@ footer{padding-block:0 110px;color:var(--mist);font-size:14px;text-align:center}
 
       <section class="step" data-step="1">
         <h3 id="stepTitle">Who dares to come?</h3>
-        <p class="lead">Just your name and phone. The address comes on WhatsApp.</p>
+        <p class="lead">Just your name and phone. The address comes by text message.</p>
         <div class="field" data-f><label for="name">Name</label><input id="name" autocomplete="name" placeholder="Your name"><span class="msg">We need a name, even a fake one.</span></div>
         <div class="field" data-f><label for="phone">Phone</label><input id="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="050-000-0000"><span class="msg">Enter a full mobile number, e.g. 050-123-4567.</span></div>
         <div class="actions"><button class="btn" type="submit">Continue</button></div>
@@ -327,7 +327,6 @@ footer{padding-block:0 110px;color:var(--mist);font-size:14px;text-align:center}
         <div class="ticket"><small>Your ticket</small><span id="ticketText"></span></div>
         <div class="actions">
           <a class="btn" id="calBtn" target="_blank" rel="noopener">Add to calendar 📅</a>
-          <a class="btn ghost" id="waPlus" target="_blank" rel="noopener" hidden></a>
           <button class="link-btn" type="button" data-close>Back to the page</button>
           <button class="link-btn" type="button" data-restart>Not you? Start a new RSVP</button>
         </div>
@@ -347,7 +346,7 @@ footer{padding-block:0 110px;color:var(--mist);font-size:14px;text-align:center}
     START: "2026-10-23T18:30:00+03:00",
     CAL_START: "20261023T183000",
     CAL_END: "20261023T233000",
-    TICKET: "Friday, Oct 23 · 6:30 PM · Florentin 🎃 The address and door code are coming your way on WhatsApp.",
+    TICKET: "Friday, Oct 23 · 6:30 PM · Florentin 🎃 The address and door code are on their way to your phone by SMS.",
     LOCATION: "Florentin, Tel Aviv"
   };
 
@@ -579,12 +578,8 @@ footer{padding-block:0 110px;color:var(--mist);font-size:14px;text-align:center}
     var details=CONFIG.TICKET+"\nHouse rules: spook someone you don't know. Stay alive, at least until dessert.";
     $("#calBtn").href="https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent("Halloween Dinner Party 🎃")+
       "&dates="+CONFIG.CAL_START+"/"+CONFIG.CAL_END+"&ctz=Asia/Jerusalem&details="+encodeURIComponent(details)+"&location="+encodeURIComponent(CONFIG.LOCATION);
-    var wp=$("#waPlus");
-    if(rec.plusPhone){wp.hidden=false;wp.textContent="Send "+rec.plusName+" the invite on WhatsApp";
-      wp.href="https://wa.me/"+rec.plusPhone+"?text="+encodeURIComponent("Hey "+rec.plusName+", "+rec.name+" is bringing you to a Halloween dinner party 🦇\nFriday, Oct 23 · 6:30 PM · Florentin. The address and door code will come on WhatsApp.");}
-    else wp.hidden=true;
     $("#doneLead").textContent=(rec.name?rec.name+", you're":"You're")+" on the list.";
-    $("#fine").textContent=rec.plusPhone?"The button opens WhatsApp with the message ready. Just hit send.":"";
+    $("#fine").textContent=rec.plusPhone?rec.plusName+" gets the invite by SMS too.":"";
   }
   function renderState(){
     if(!rec.done)return;
