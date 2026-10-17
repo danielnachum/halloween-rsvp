@@ -209,6 +209,8 @@ footer{padding-block:0 110px;color:var(--mist);font-size:14px;text-align:center}
 .chip:has(input:checked){border-color:var(--pumpkin);background:rgba(255,123,28,.16)}
 .chip:has(input:checked)::after{content:"✓";margin-left:auto;color:var(--pumpkin);font-weight:700}
 .chips.one{grid-template-columns:1fr}
+.btn.solo{border:1px solid rgba(255,123,28,.6);color:var(--bone);background:rgba(255,123,28,.08)}
+.btn.solo:hover{background:rgba(255,123,28,.16)}
 .actions{display:grid;gap:10px}
 .link-btn{background:none;border:0;color:var(--mist);text-decoration:underline;text-underline-offset:4px;font:500 15px var(--f-body);cursor:pointer;padding:6px}
 .ticket{border:1px dashed rgba(255,123,28,.55);border-radius:16px;padding:16px 18px;margin:4px 0 18px;background:rgba(0,0,0,.25);font-size:17px;line-height:1.55}
@@ -304,7 +306,7 @@ footer{padding-block:0 110px;color:var(--mist);font-size:14px;text-align:center}
         <p class="lead">Bringing friends? Each one gets the invite by SMS.</p>
         <div id="plusList"></div>
         <button class="add-friend" type="button" id="addFriend"><span aria-hidden="true">+</span> Add another friend</button>
-        <div class="actions"><button class="btn" type="submit">Continue</button><button class="link-btn" type="button" data-skip>I’m coming solo</button></div>
+        <div class="actions"><button class="btn" type="submit">Continue</button><button class="btn ghost solo" type="button" data-skip>I’m coming solo 🕯️</button></div>
       </section>
 
       <section class="step" data-step="3" hidden>
@@ -315,7 +317,8 @@ footer{padding-block:0 110px;color:var(--mist);font-size:14px;text-align:center}
           <label class="chip"><input type="checkbox" name="bring" value="Drinks"><span class="ic">🍷</span>Drinks</label>
           <label class="chip"><input type="checkbox" name="bring" value="Dessert"><span class="ic">🧁</span>Dessert</label>
           <label class="chip"><input type="checkbox" name="bring" value="Blood"><span class="ic">🩸</span>Blood</label>
-          <label class="chip" style="grid-column:1/-1"><input type="checkbox" name="bring" value="Mouse potion"><span class="ic">🐭</span>Mouse potion</label>
+          <label class="chip"><input type="checkbox" name="bring" value="Mouse potion"><span class="ic">🐭</span>Mouse potion</label>
+          <label class="chip"><input type="checkbox" name="bring" value="Myself, as the main course"><span class="ic">🧛</span>Myself, as the main course</label>
         </div>
         <div class="actions"><button class="btn" type="submit">Next</button></div>
       </section>
