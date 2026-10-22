@@ -182,6 +182,20 @@ footer{padding-block:0 110px;color:var(--mist);font-size:14px;text-align:center}
 .steps svg{width:100%;height:100%;fill:var(--pumpkin)}
 .step h3{font-family:var(--f-horror);font-weight:400;font-size:34px;line-height:1.08;margin:0 0 8px;text-align:center;text-wrap:balance;letter-spacing:.02em}
 .step .lead{margin:0 0 20px;text-align:center;color:var(--mist)}
+.gate h3{color:var(--blood);text-shadow:0 0 22px rgba(192,24,42,.45)}
+.gate #gateCode{text-align:center;letter-spacing:.4em;font-size:22px;font-variant-numeric:tabular-nums}
+.gate #gateCode::placeholder{letter-spacing:normal;font-size:17px}
+.doll-wrap{height:150px;display:flex;justify-content:center;align-items:flex-end;overflow:hidden;margin:-6px 0 10px;border-bottom:1px solid var(--glass-line)}
+.doll{width:130px;height:auto;animation:dollrise 1.1s cubic-bezier(.2,.9,.25,1.15) both}
+.doll-head{transform-origin:80px 120px;animation:dolltilt 3.2s ease-in-out .9s infinite}
+.doll-arm{transform-origin:128px 120px;animation:dollstab 1.6s ease-in-out 1.1s infinite}
+.doll-eye{animation:dolllook 4s steps(1) infinite}
+@keyframes dollrise{from{transform:translateY(105%)}}
+@keyframes dolltilt{0%,40%,100%{transform:rotate(0)}48%{transform:rotate(-14deg)}52%{transform:rotate(-12deg)}60%,90%{transform:rotate(9deg)}}
+@keyframes dollstab{0%,100%{transform:rotate(0)}45%{transform:rotate(-22deg)}55%{transform:rotate(14deg)}}
+@keyframes dolllook{0%,60%{transform:translateX(0)}61%,80%{transform:translateX(3px)}81%{transform:translateX(-3px)}}
+.gate.shake{animation:gshake .4s}
+@keyframes gshake{25%{transform:translateX(-8px)}50%{transform:translateX(7px)}75%{transform:translateX(-4px)}}
 .step.final{padding-block:18px 10px}
 .step.final h3{font-size:44px;line-height:1;color:var(--pumpkin);text-shadow:0 0 24px rgba(255,123,28,.35);margin-bottom:14px}
 .step.final .lead{font-size:18px;color:var(--bone);margin:0}
@@ -220,7 +234,7 @@ footer{padding-block:0 110px;color:var(--mist);font-size:14px;text-align:center}
 
 @media (max-width:420px){.pair{grid-template-columns:1fr;gap:0}.chips{grid-template-columns:1fr}.fab{padding:15px 24px}}
 @media (prefers-reduced-motion:reduce){
-  .sp,.witch,.witch svg,.fog,.leg,.moon-body,.fab,.moon.awake{animation:none!important}
+  .sp,.witch,.witch svg,.fog,.leg,.moon-body,.fab,.moon.awake,.doll,.doll-head,.doll-arm,.doll-eye{animation:none!important}
   .sp{height:22vh}
   .witch{display:none}
 }
@@ -292,6 +306,31 @@ footer{padding-block:0 110px;color:var(--mist);font-size:14px;text-align:center}
     <div class="steps" id="dots" aria-hidden="true"></div>
     <form id="rsvp" novalidate>
       <p class="hp" aria-hidden="true"><label>Leave empty <input id="botField" name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+
+      <section class="step gate" data-step="0" hidden>
+        <div class="doll-wrap"><svg class="doll" viewBox="0 0 160 200" aria-hidden="true">
+            <g class="doll-arm"><path d="M128 120 L150 92" stroke="#e8dccb" stroke-width="9" stroke-linecap="round"/>
+              <g transform="translate(148 92) rotate(-30)"><rect x="-4" y="-6" width="8" height="18" rx="3" fill="#3a2416"/><path d="M-9 -6 L9 -6 L9 -40 Q0 -48 -9 -40 Z" fill="#c9ced6"/><path d="M-9 -26 L9 -26" stroke="#8a2030" stroke-width="2"/><path d="M-6 -40 l2 6 l2 -5" stroke="#a3121f" stroke-width="2" fill="none"/></g></g>
+            <path d="M34 200 Q34 138 80 132 Q126 138 126 200 Z" fill="#2a1a2e"/>
+            <path d="M58 136 L80 160 L102 136" fill="none" stroke="#e8dccb" stroke-width="5"/>
+            <g class="doll-head">
+              <path d="M30 70 Q30 18 80 18 Q130 18 130 70 L130 104 L118 92 L42 92 L30 104 Z" fill="#0d0a10"/>
+              <ellipse cx="80" cy="78" rx="40" ry="44" fill="#efe6d8"/>
+              <path d="M40 58 Q80 34 120 58 L120 46 Q80 22 40 46 Z" fill="#0d0a10"/>
+              <path d="M98 50 L104 66 L98 78 L106 92" stroke="#7b6a5c" stroke-width="1.6" fill="none"/>
+              <ellipse cx="64" cy="76" rx="9" ry="11" fill="#08060a"/><ellipse cx="96" cy="76" rx="9" ry="11" fill="#08060a"/>
+              <circle class="doll-eye" cx="64" cy="77" r="2.2" fill="#fff"/><circle class="doll-eye" cx="96" cy="77" r="2.2" fill="#fff"/>
+              <path d="M60 92 Q62 98 58 104" stroke="#08060a" stroke-width="1.6" fill="none"/>
+              <circle cx="54" cy="94" r="6" fill="#e9a4a4" opacity=".5"/><circle cx="106" cy="94" r="6" fill="#e9a4a4" opacity=".5"/>
+              <path d="M62 102 Q80 116 98 102" stroke="#6b0e18" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <path d="M66 103 l1 5 M72 106 l1 5 M78 107 v5 M84 107 v5 M90 106 l-1 5 M95 103 l-1 5" stroke="#6b0e18" stroke-width="1.6"/>
+            </g>
+          </svg></div>
+        <h3>We’re sold out, so fuck off.</h3>
+        <p class="lead">You’re welcome to double-check with the host.</p>
+        <div class="field" data-f><label for="gateCode">Got a secret code from the host?</label><input id="gateCode" inputmode="numeric" autocomplete="off" maxlength="6" placeholder="6 digits"><span class="msg">Wrong code. The doll saw that.</span></div>
+        <div class="actions"><button class="btn" type="submit">I’ll be devoted to black magic</button></div>
+      </section>
 
       <section class="step" data-step="1">
         <h3 id="stepTitle">Who dares to come?</h3>
@@ -497,7 +536,7 @@ footer{padding-block:0 110px;color:var(--mist);font-size:14px;text-align:center}
   var rec=store.get("hw_rsvp")||{id:"g"+Date.now().toString(36)+Math.random().toString(36).slice(2,7)};
 
   function show(n){
-    cur=n;$("#backBtn").hidden=!(n>1&&n<5);$$(".step").forEach(function(s){s.hidden=+s.dataset.step!==n});
+    cur=n;$("#backBtn").hidden=!(n>1&&n<5);$("#dots").hidden=n===0;$$(".step").forEach(function(s){s.hidden=+s.dataset.step!==n});
     $$("#dots i").forEach(function(d,i){d.className=i+1<n?"done":(i+1===n?"now":"")});
     var first=$('.step[data-step="'+n+'"] input:not([type=checkbox]), .step[data-step="'+n+'"] .btn',form);if(first)setTimeout(function(){first.focus({preventScroll:true})},60);
   }
@@ -513,7 +552,7 @@ footer{padding-block:0 110px;color:var(--mist);font-size:14px;text-align:center}
   var busy=false;
   function open(){
     if(busy||!overlay.hidden)return;busy=true;
-    if(rec.done){fillDone();show(5)}else show(rec.name?2:1);
+    if(rec.done){fillDone();show(5)}else if(!rec.unlocked)show(0);else show(rec.name?2:1);
     if(rec.name){$("#name").value=rec.name;$("#phone").value=rec.phoneRaw||""}
     renderPlus();
     fab.style.visibility="hidden";
@@ -585,8 +624,15 @@ footer{padding-block:0 110px;color:var(--mist);font-size:14px;text-align:center}
   }
   function checked(name){return $$('input[name="'+name+'"]:checked').map(function(c){return c.value})}
 
+  var GATE="3b152c40";
+  function gateHash(s){var h=5381;for(var i=0;i<s.length;i++){h=(Math.imul(h,33)^s.charCodeAt(i))>>>0}return h.toString(16)}
   form.addEventListener("submit",function(e){
     e.preventDefault();
+    if(cur===0){
+      var g=$("#gateCode"),code=g.value.replace(/\D/g,"");
+      if(gateHash("hw:"+code)!==GATE){setBad(g,true);var gs=$(".gate");gs.classList.remove("shake");void gs.offsetWidth;gs.classList.add("shake");g.select();return}
+      rec.unlocked=true;store.set("hw_rsvp",rec);show(1);return;
+    }
     if(cur===1){
       var n=$("#name"),p=$("#phone"),ph=normPhone(p.value),ok=setBad(n,!n.value.trim());ok=setBad(p,!ph)&&ok;
       if(!ok){($(".bad input",form)||n).focus();return}
